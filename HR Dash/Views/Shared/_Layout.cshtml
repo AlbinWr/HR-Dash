@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@using HR_Dash.Models
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HR_Dash</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HR_Dash.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
+    @RenderSection("Styles", required: false)
+</head>
+@{
+        var user = await UserManager.GetUserAsync(User);
+}
+<body>
+    <div class="wrapper">
+        <!-- Vänster nav -->
+        <nav class="sidebar bg-dark text-white p-3">
+            <div>
+                <a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">
+                    <h4 class="mb-4">HR-Dash</h4>
+                </a>
+
+                @if (user != null)
+                {
+                    var fornamn = user.Email.Split('@')[0].Split('.')[0];
+
+                    <div class="mb-4">
+                        <strong>@fornamn</strong>
+                    </div>
+                }
+
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house me-2"></i> Startsida
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-controller="Anstalld" asp-action="Profil">
+                            <i class="bi bi-person-circle me-2"></i> Min profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-controller="Mote" asp-action="MinaMoten">
+                            <i class="bi bi-calendar-plus"></i> Mina möten
+                        </a>
+                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-controller="Admin" asp-action="Index">
+                                <i class="bi bi-speedometer2 me-2"></i> Adminpanel
+                            </a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="RullandeSchema" asp-action="Index">
+                                <i class="bi bi-calendar-week"></i> Hanter schema
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Mote" asp-action="Index">
+                                <i class="bi bi-calendar-plus"></i> Hantera Möten
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+            <!-- Nedre del: _LoginPartial -->
+            <div>
+                <ul class="nav flex-column">
+                    @await Html.PartialAsync("_LoginPartial")
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="content flex-grow-1 overflow-auto p-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - HR_Dash - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿@using HR_Dash.Models.ViewModels
+@model List<MotenViewModel>
+
+@{
+    ViewData["Title"] = "Möten";
+}
+
+<h2 class="mb-4">Mina möten</h2>
+
+@if (User.IsInRole("Manager"))
+{
+    <div class="mb-4">
+        <a asp-controller="Mote" asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-calendar-plus"></i> Skapa nytt möte
+        </a>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info mb-0">Inga möten planerade.</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Titel</th>
+                        <th>Plats</th>
+                        <th>Starttid</th>
+                        <th>Sluttid</th>
+                        <th>Deltagare</th>
+                        <th style="width: 150px;">Åtgärder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var mote in Model)
+                    {
+                        <tr>
+                            <td>@mote.Titel</td>
+                            <td>@mote.Plats</td>
+                            <td>@mote.StartTid.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@mote.SlutTid.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@string.Join(", ", mote.Deltagare)</td>
+                            <td>
+                                @if (mote.IsManager)
+                                {
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@mote.MoteId" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form asp-action="Delete" asp-route-id="@mote.MoteId" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort mötet?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model HR_Dash.Models.Anstalld
+@{
+    ViewData["Title"] = "Min profil";
+}
+
+<h2 class="mb-4">Min profil</h2>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <table class="table table-bordered mb-0">
+            <tbody>
+                <tr>
+                    <th style="width: 200px;">Namn</th>
+                    <td>@Model.AnstalldName</td>
+                </tr>
+                <tr>
+                    <th>E-post</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Telefonnummer</th>
+                    <td>@Model.Telefonnummer</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="d-flex gap-2">
+    <a asp-action="RedigeraProfil" class="btn btn-primary">
+        <i class="bi bi-pencil"></i> Redigera
+    </a>
+    <a asp-action="AndraLosenord" asp-controller="Anvandare" class="btn btn-outline-danger">
+        <i class="bi bi-lock"></i> Ändra lösenord
+    </a>
+</div>

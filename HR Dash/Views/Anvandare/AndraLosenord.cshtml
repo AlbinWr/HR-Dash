@@ -1,0 +1,56 @@
+﻿@using HR_Dash.Models.ViewModels
+@model AndraLosenordViewModel
+
+@{
+    ViewData["Title"] = "Ändra lösenord";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Använd din vanliga layout med sidebar
+}
+
+<h2 class="mb-4">Ändra lösenord</h2>
+
+@if (ViewBag.Meddelande != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.Meddelande
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        <form asp-action="AndraLosenord" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="NuvarandeLosenord" class="form-label"></label>
+                <input asp-for="NuvarandeLosenord" class="form-control" type="password" />
+                <span asp-validation-for="NuvarandeLosenord" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NyttLosenord" class="form-label"></label>
+                <input asp-for="NyttLosenord" class="form-control" type="password" />
+                <span asp-validation-for="NyttLosenord" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BekraftaNyttLosenord" class="form-label"></label>
+                <input asp-for="BekraftaNyttLosenord" class="form-control" type="password" />
+                <span asp-validation-for="BekraftaNyttLosenord" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Profil" asp-controller="Anstalld" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Tillbaka
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-lock"></i> Ändra lösenord
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,100 @@
+﻿@using HR_Dash.Models.ViewModels
+@model SkapaMoteViewModel
+
+@{
+    ViewData["Title"] = "Skapa möte";
+}
+
+<h2>Skapa möte</h2>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+<div class="card shadow">
+    <div class="card-header">
+        <h4>Skapa möte</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="@(Model.MoteId.HasValue ? "Edit" : "Create")" method="post">
+            <input type="hidden" asp-for="MoteId" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Titel" class="form-label" placeholder="Ange mötets titel"></label>
+                        <input asp-for="Titel" class="form-control" />
+                        <span asp-validation-for="Titel" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Plats" class="form-label"></label>
+                        <input asp-for="Plats" class="form-control" />
+                        <span asp-validation-for="Plats" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Datum" class="form-label"></label>
+                        <input asp-for="Datum" type="date" class="form-control" />
+                        <span asp-validation-for="Datum" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Tid" class="form-label">Starttid</label>
+                        <select asp-for="Tid" asp-items="Model.StartTidAlternativ" class="form-select">
+                            <option value="">Välj starttid...</option>
+                        </select>
+                        <span asp-validation-for="Tid" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MoteLangd" class="form-label">Längd</label>
+                        <select asp-for="MoteLangd" asp-items="Model.LangdAlternativ" class="form-select">
+                            <option value="">Välj längd...</option>
+                        </select>
+                        <span asp-validation-for="MoteLangd" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ValdaAnstallda" class="form-label">Anställda</label>
+                        <select asp-for="ValdaAnstallda" asp-items="Model.AnstalldaList" class="form-select select2" multiple></select>
+                        <span asp-validation-for="ValdaAnstallda" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Beskrivning" class="form-label"></label>
+                <textarea asp-for="Beskrivning" class="form-control"></textarea>
+                <span asp-validation-for="Beskrivning" class="text-danger"></span>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-calendar-plus"></i> Skapa möte
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Välj anställda...",
+                allowClear: true
+            });
+        });
+    </script>
+}

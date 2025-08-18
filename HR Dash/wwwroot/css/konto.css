@@ -1,0 +1,19 @@
+﻿.konto-container {
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+.konto-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    opacity: 0.9;
+}

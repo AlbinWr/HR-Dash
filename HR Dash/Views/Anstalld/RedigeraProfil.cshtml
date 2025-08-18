@@ -1,0 +1,43 @@
+﻿@model HR_Dash.Models.ViewModels.RedigeraProfilViewModel
+@{
+    ViewData["Title"] = "Redigera profil";
+}
+
+<h2 class="mb-4">Redigera profil</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        <form asp-action="RedigeraProfil" method="post">
+            <input type="hidden" asp-for="AnstalldId" />
+
+            <div class="mb-3">
+                <label asp-for="AnstalldName" class="form-label"></label>
+                <input asp-for="AnstalldName" class="form-control" />
+                <span asp-validation-for="AnstalldName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Telefonnummer" class="form-label"></label>
+                <input asp-for="Telefonnummer" class="form-control" />
+                <span asp-validation-for="Telefonnummer" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a asp-action="Profil" class="btn btn-secondary">Avbryt</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-save"></i> Spara ändringar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

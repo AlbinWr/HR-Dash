@@ -1,0 +1,65 @@
+﻿@model TilldelaSchemaViewModel
+@{
+    ViewData["Title"] = "Tilldela schema";
+}
+
+<h2>Tilldela schema: @Model.NamnSkift</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h4>Tilldela anställda</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="TilldelaSchema" method="post">
+            <input type="hidden" asp-for="IdRullandeSchema" />
+
+            <div class="mb-3">
+                <label asp-for="ValdaAnstallda" class="form-label">Anställda</label>
+                <select asp-for="ValdaAnstallda" asp-items="Model.AnstalldaLista" class="form-select select2" multiple></select>
+                <span asp-validation-for="ValdaAnstallda" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Startdatum" class="form-label">Startdatum</label>
+                <input asp-for="Startdatum" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Startdatum" class="text-danger"></span>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-person-plus"></i> Tilldela
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Tillbaka till översikten
+    </a>
+</div>
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Välj anställda...",
+                allowClear: true
+            });
+        });
+    </script>
+}

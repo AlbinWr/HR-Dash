@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR Dash", "HR Dash\HR Dash.csproj", "{4CDE5C6E-F25E-42E9-9B09-36A2C0B4E22F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CDE5C6E-F25E-42E9-9B09-36A2C0B4E22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDE5C6E-F25E-42E9-9B09-36A2C0B4E22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDE5C6E-F25E-42E9-9B09-36A2C0B4E22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDE5C6E-F25E-42E9-9B09-36A2C0B4E22F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59939741-3C8E-4067-AC8F-8ACB976E119A}
+	EndGlobalSection
+EndGlobal

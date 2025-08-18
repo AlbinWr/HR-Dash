@@ -1,0 +1,70 @@
+﻿@model HR_Dash.Models.RullandeSchema
+
+@{
+    ViewData["Title"] = "Schema";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h4>Skapa nytt schema</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="NamnSkift" class="form-label"></label>
+                        <input asp-for="NamnSkift" class="form-control" />
+                        <span asp-validation-for="NamnSkift" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StartTid" class="form-label">Starttid</label>
+                        <input asp-for="StartTid" type="time" class="form-control" />
+                        <span asp-validation-for="StartTid" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="SkiftTimmar" class="form-label">Skift – timmar</label>
+                        <input asp-for="SkiftTimmar" type="number" min="1" max="12" class="form-control" />
+                        <span asp-validation-for="SkiftTimmar" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SkiftMinuter" class="form-label">Skift – minuter</label>
+                        <input asp-for="SkiftMinuter" type="number" min="0" max="59" class="form-control" />
+                        <span asp-validation-for="SkiftMinuter" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MonsterString" class="form-label">Schema-mönster</label>
+                <input asp-for="MonsterString" class="form-control" placeholder="Ex: J4L4J5L5" />
+                <span asp-validation-for="MonsterString" class="text-danger"></span>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-calendar-plus"></i> Skapa schema
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

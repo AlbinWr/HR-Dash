@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HR_Dash.Models.RullandeSchema>
+
+@{
+    ViewData["Title"] = "Rullande scheman";
+}
+
+<h2 class="mb-4">Rullande scheman</h2>
+
+<div class="mb-4 d-flex gap-2">
+    <a class="btn btn-primary" asp-controller="RullandeSchema" asp-action="Create">
+        <i class="bi bi-hourglass-split"></i> Skapa nytt schema
+    </a>
+    <a class="btn btn-outline-primary" asp-controller="Skift" asp-action="Create">
+        <i class="bi bi-plus-circle"></i> Skapa ett skift
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Namn</th>
+                        <th>Starttid</th>
+                        <th>Längd</th>
+                        <th>Antal anställda</th>
+                        <th style="width: 180px;">Åtgärder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var schema in Model)
+                    {
+                        <tr>
+                            <td>@schema.NamnSkift</td>
+                            <td>@schema.StartTid.ToString(@"hh\:mm")</td>
+                            <td>@($"{schema.SkiftTimmar}h {schema.SkiftMinuter}min")</td>
+                            <td>@schema.Anstallda?.Count()</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-outline-success" asp-action="TilldelaSchema" asp-route-id="@schema.IdSchema">
+                                        <i class="bi bi-person-plus"></i> Tilldela
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-action="Visa" asp-route-id="@schema.IdSchema">
+                                        <i class="bi bi-eye"></i> Visa
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info mb-0">Inga rullande scheman har skapats ännu.</div>
+        }
+    </div>
+</div>

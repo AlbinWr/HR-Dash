@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using HR_Dash.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <form asp-action="LoggaUt" asp-controller="Anvandare" method="post">
+            <button type="submit" class="nav-link btn btn-link text-white p-0 text-start w-100">
+                <i class="bi bi-box-arrow-right me-2"></i> Logga ut
+            </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Anvandare" asp-action="LoggaIn">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Logga in
+            </a>
+        </li>
+    }
+

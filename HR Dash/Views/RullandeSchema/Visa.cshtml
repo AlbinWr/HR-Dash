@@ -1,0 +1,77 @@
+﻿@model HR_Dash.Models.RullandeSchema
+
+@{
+    ViewData["Title"] = "Visa schema";
+}
+
+<h2 class="mb-4">@Model.NamnSkift</h2>
+
+<div class="card shadow mb-4">
+    <div class="card-header">
+        <h4>Information om schema</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Starttid:</dt>
+            <dd class="col-sm-9">@Model.StartTid.ToString(@"hh\:mm")</dd>
+
+            <dt class="col-sm-3">Skiftlängd:</dt>
+            <dd class="col-sm-9">@Model.SkiftTimmar tim @Model.SkiftMinuter min</dd>
+
+            <dt class="col-sm-3">Schema-mönster:</dt>
+            <dd class="col-sm-9">@Model.MonsterString</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Anställda kopplade till detta schema</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.Anstallda.Any())
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Namn</th>
+                        <th>Startdatum</th>
+                        <th>Åtgärder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var an in Model.Anstallda)
+                    {
+                        <tr>
+                            <td>@an.Anstalld.AnstalldName</td>
+                            <td>@an.Startdatum.ToShortDateString()</td>
+                            <td>
+                                <form asp-action="TaBortAnstalldSchema" asp-route-id="@an.Id" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort denna anställd från schemat?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Ta bort
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info mb-0">Inga anställda är tilldelade detta schema.</div>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Tillbaka till översikten
+    </a>
+    <form asp-action="Delete" asp-route-id="@Model.IdSchema" method="post"
+          onsubmit="return confirm('Är du säker på att du vill ta bort detta schema?');">
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Ta bort schema
+        </button>
+    </form>
+</div>

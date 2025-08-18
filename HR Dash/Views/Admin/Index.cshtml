@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Anstalld>
+
+@{
+    ViewData["Title"] = "Adminpanel – Anställda";
+}
+
+<h2>Adminpanel – Anställda</h2>
+
+<!--Länk för att registrera en ny anställd-->
+<a asp-action="RegistreraAnstalld" class="btn btn-primary mb-3">Registrera anställd</a>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!--Sök anställd-->
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="sokAnstalld" class="form-control"
+               placeholder="Sök anställd"
+               value="@ViewData["Filter"]" />
+        <button type="submit" class="btn btn-outline-secondary">Sök</button>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <p>Inga anställda kunde hittas.</p>
+}
+
+//Visar anställda i en tabell
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>E-post</th>
+                <th>Anställningsdatum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var anstalld in Model)
+            {
+                <tr>
+                    <td>@anstalld.AnstalldName</td>
+                    <td>@anstalld.Email</td>
+                    <td>@anstalld.AnstallningDatum.ToShortDateString()</td>
+                    <td>
+                        <a class="btn btn-danger btn-sm"
+                           asp-action="RedigeraAnstalld"
+                           asp-route-id="@anstalld.AnstalldId">
+                            Redigera
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" 
+                        asp-action="TaBortAnstalld" 
+                        asp-route-id="@anstalld.AnstalldId"
+                        onclick="bekraftaDelete(this, '@anstalld.AnstalldName')">
+                        Ta bort</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<h2>Hantera Användare</h2>
+
+@section Scripts {
+    <script>
+        function bekraftaDelete(link, anstalldName) {
+            var svar = confirm(`Är du säker på att du vill ta bort ${anstalldName}?`);
+            if (svar == false) {
+                event.preventDefault();
+            }
+        }
+    </script>
+}

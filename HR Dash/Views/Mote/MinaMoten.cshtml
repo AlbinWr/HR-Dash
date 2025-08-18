@@ -1,0 +1,49 @@
+﻿@model IEnumerable<HR_Dash.Models.ViewModels.MotenViewModel>
+
+@{
+    ViewData["Title"] = "Mina möten";
+}
+
+<h2 class="mb-4">Mina kommande möten</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info mb-0">Du är inte inbokad på några möten.</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Titel</th>
+                        <th>Plats</th>
+                        <th>Starttid</th>
+                        <th>Sluttid</th>
+                        <th>Deltagare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var mote in Model)
+                    {
+                        <tr>
+                            <td>@mote.Titel</td>
+                            <td>@mote.Plats</td>
+                            <td>@mote.StartTid.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@mote.SlutTid.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <ul class="list-unstyled mb-0">
+                                    @foreach (var deltagare in mote.Deltagare)
+                                    {
+                                        <li>@deltagare</li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

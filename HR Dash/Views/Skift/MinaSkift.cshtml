@@ -1,0 +1,53 @@
+﻿@model IEnumerable<HR_Dash.Models.Skift>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Mina skift";
+
+    var grupperadeSkift = Model
+    .OrderBy(s => s.StartTid)
+    .GroupBy(s => System.Globalization.ISOWeek.GetWeekOfYear(s.StartTid))
+    .ToList();
+}
+
+<h2 class="mb-4">Mina skift</h2>
+
+@if (!Model.Any())
+{
+        <div class="alert alert-info">Du har inga skift inplanerade.</div>
+}
+else
+{
+    foreach (var vecka in grupperadeSkift)
+    {
+        var veckaNummer = vecka.Key;
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Vecka @veckaNummer</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Veckodag</th>
+                            <th>Datum</th>
+                            <th>Starttid</th>
+                            <th>Sluttid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var skift in vecka)
+                        {
+                            <tr>
+                                <td>@skift.StartTid.ToString("dddd")</td>
+                                <td>@skift.StartTid.ToString("yyyy-MM-dd")</td>
+                                <td>@skift.StartTid.ToString("HH:mm")</td>
+                                <td>@skift.SlutTid.ToString("HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}

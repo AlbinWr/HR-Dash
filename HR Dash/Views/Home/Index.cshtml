@@ -1,0 +1,56 @@
+﻿@model HR_Dash.Models.ViewModels.StartsidaViewModel
+@{
+    ViewData["Title"] = "Hem";
+}
+
+<h2>Välkommen!</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">Nästa skift</div>
+            <div class="card-body">
+                @if (Model.NastaSkift != null)
+                {
+                    <p><strong>Datum:</strong> @Model.NastaSkift.StartTid.ToString("dddd dd MMMM")</p>
+                    <p><strong>Tid:</strong> @Model.NastaSkift.StartTid.ToString("HH:mm") – @Model.NastaSkift.SlutTid.ToString("HH:mm")</p>
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Skift" asp-action="MinaSkift">
+                        Visa hela schema
+                        </a>
+                }
+                else
+                {
+                    <p>Inga skift planerade.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">Kommande möten</div>
+            <div class="card-body">
+                @if (Model.KommandeMoten.Any())
+                {
+                    <ul class="list-unstyled">
+                        @foreach (var mote in Model.KommandeMoten)
+                        {
+                            <li>
+                                <strong>@mote.Titel</strong><br />
+                                @mote.StartTid.ToString("dddd dd MMMM HH:mm") – @mote.Plats
+                            </li>
+                        }
+                    </ul>
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Mote" asp-action="MinaMoten">
+                        Visa alla möten
+                        </a>
+                }
+                else
+                {
+                    <p>Inga möten planerade.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

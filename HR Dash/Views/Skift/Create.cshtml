@@ -1,0 +1,52 @@
+﻿@using HR_Dash.Models.ViewModels
+@model SkapaSkiftViewModel
+@{
+    ViewData["Title"] = "Skapa skift";
+}
+
+<h2>Skapa skift</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h4>Skapa skift</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="AnstalldId" class="form-label">Anställd</label>
+                <select asp-for="AnstalldId" asp-items="Model.AnstalldaList" class="form-select"></select>
+                <span asp-validation-for="AnstalldId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartTid" class="form-label"></label>
+                <input asp-for="StartTid" type="datetime-local" class="form-control"
+                       value="@Model.StartTid.ToString("yyyy-MM-ddT00:00")" />
+                <span asp-validation-for="StartTid" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SlutTid" class="form-label"></label>
+                <input asp-for="SlutTid" type="datetime-local" class="form-control"
+                       value="@Model.SlutTid.ToString("yyyy-MM-ddT00:00")" />
+                <span asp-validation-for="SlutTid" class="text-danger"></span>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Skapa skift
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
