@@ -8,6 +8,17 @@ Ett enkelt HR-dashboard byggt med ASP.NET Core och Entity Framework. Applikation
 - SQL Server
 - Bootstrap
 
+# Funktioner
+- Registrering & inloggning (Identity)  
+- Rollbaserad åtkomst – Admin / Manager / Employee  
+- CRUD-hantering av anställda  
+- Mötesbokning (skapa, redigera, ta bort)  
+- Schemaläggning  
+   – Återkommande skift  
+   – Engångsskift  
+- Profilsidor  
+- SQL-databas via Entity Framework
+
 # Seedade Användare
 Användare seedas automatiskt vid uppstart.
 
